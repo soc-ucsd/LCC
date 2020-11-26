@@ -14,3 +14,5 @@ the CAV maintains car-following operations, adapting to the states of its preced
 Wang, J., Zheng, Y., Chen, C., Xu, Q., & Li, K. (2020). Leading cruise control in mixed traffic flow. 59th IEEE Conference on Decision and Control, 2020. Available: https://arxiv.org/abs/2007.11753
 
 The presentation slides can be downloaded [here](https://wangjw18.github.io/files/2020-CDC-slides.pdf).
+## Contacts
+A relavent project, MCMT (modeling and control of mixed traffic flow), can be found [here](https://github.com/wangjw18/MCMT).

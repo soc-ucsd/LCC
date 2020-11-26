@@ -5,8 +5,8 @@ The blue arrows represent the communication topology of the CAV, while the purpl
 
 Two special cases of LCC is Car-Driving LCC (CF-LCC) and Free-Driving LCC (FD-LCC).
 <img src="docs/img/FD-CF.png" align="center" width="100%"/>
-<img src="docs/img/CFLCC.gif" align="left" width="50%"/>
-<img src="docs/img/FDLCC.gif" align="right" width="50%"/>
+<img src="docs/img/CFLCC.gif" align="center" width="49.5%"/>
+<img src="docs/img/FDLCC.gif" align="center" width="49.5%"/>
 
 ## Features
 the CAV maintains car-following operations, adapting to the states of its preceding vehicles, and also aims to **lead the motion of its following vehicles**. Specifically, by controlling of the CAV, LCC aims to attenuate downstream traffic perturbations and **smooth upstream traffic flow actively**.

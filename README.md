@@ -1,4 +1,4 @@
-# LCC
+# Demos for LCC in mixed traffic
 Leading Cruise Control is a general control framework for connected and autonomous vehicles (CAVs) in mixed traffic flow, where human-driven vehicles (HDVs) also exist. A schematic diagram is shown below.
 <img src="docs/img/LCC.png" align="center" width="100%"/>
 The blue arrows represent the communication topology of the CAV, while the purple arrows illustrate the interaction direction in HDVs' dynamics. The blue vehicles, gray vehicles and yellow vehicles represent CAVs, HDVs and the head vehicle, respectively.

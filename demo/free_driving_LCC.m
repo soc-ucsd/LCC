@@ -70,13 +70,13 @@ fprintf('   Simulation beigns ...')
 % ------------------------------------------------------------------------
 % Mix or not
 %   mix  = 0: All HDVs 
-%   mixe = 1: there exists one CAV -- Free-driving LCC 
+%   mix  = 1: there exists one CAV -- Free-driving LCC 
 
 tic
 for mix = 0:1 
-    switch mix  % LCC controller work or not: 0 - Controller Work; Large: won't work
+    switch mix  
         case 1
-            ActuationTime = 0;
+            ActuationTime = 0; % LCC controller work or not: 0 - Controller Work; Large: won't work
         case 0
             ActuationTime = 99999;
     end
@@ -138,8 +138,8 @@ for mix = 0:1
         end
         
         % nonlinear OVM Model
-        %V_d = v_max/2*(1-cos(pi*(h-h_st)/(h_go-h_st)));
-        %a2 = alpha*(V_h-v2)+beta*(v1-v2);
+        % V_d = v_max/2*(1-cos(pi*(h-h_st)/(h_go-h_st)));
+        % a2 = alpha*(V_d-v2)+beta*(v1-v2);
         acel = alpha*(v_max/2*(1-cos(pi*(cal_D-s_st)/(s_go-s_st))) - S(k,2:end,2))+beta*V_diff(k,:);
         acel(acel>acel_max) = acel_max;
         acel(acel<dcel_max) = dcel_max;
@@ -196,19 +196,14 @@ tsim = toc;
 fprintf('  ends at %6.4f seconds \n', tsim);
 fprintf('   Computing velocity smoothing factor ...');
 % -------------------------------------------------------------------------
-% Calculate Aggregate Velocity Deviation
+% Calculate Aggregate Squared Velocity Error
 % -------------------------------------------------------------------------
 VelocityDeviation_HDV = 0;
 VelocityDeviation_LCC = 0;
 
-for i=20/Tstep:50/Tstep  
-    VelocityDeviation_HDV = VelocityDeviation_HDV + sum((S_HDV(i,2:end,2)-15).^2);
-    VelocityDeviation_LCC = VelocityDeviation_LCC + sum((S_LCC(i,2:end,2)-15).^2);
-end
-
 for i=20/Tstep:50/Tstep
-    VelocityDeviation_HDV = VelocityDeviation_HDV + sum(abs(S_HDV(i,2:end,2)-15));
-    VelocityDeviation_LCC = VelocityDeviation_LCC + sum(abs(S_LCC(i,2:end,2)-15));
+    VelocityDeviation_HDV = VelocityDeviation_HDV + sum((S_HDV(i,2:end,2)-v_star).^2);
+    VelocityDeviation_LCC = VelocityDeviation_LCC + sum((S_LCC(i,2:end,2)-v_star).^2);
 end
 fprintf(' which is %6.4f\n',(VelocityDeviation_HDV-VelocityDeviation_LCC)/VelocityDeviation_HDV)
 
@@ -218,7 +213,7 @@ fprintf(' which is %6.4f\n',(VelocityDeviation_HDV-VelocityDeviation_LCC)/Veloci
 fprintf('-----------------------------------------------------------\n')
 fprintf('    Now record a video for demonstration, please wait ... \n')
 
-videoOutput = 0;  % whether write into the video
+videoOutput = 0;  % whether save into a video file
 vehicleSize = 12; % MarkerSize
 VelocityDisplayAlpha = 2;
 FSize = 16;

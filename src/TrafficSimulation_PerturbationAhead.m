@@ -1,27 +1,39 @@
-%% Discription
-% Consider the case of general LCC systems.
-% There are m HDVs ahead and n HDVs behind.
-% One sudden disturbance happens at the head vehicle...
-% which is at the very first beginning of this series of vehicles.
-% Correspond to Fig. 10 in our paper.
+% =========================================================================
+%          Traffic Simulation when One Perturbation Happens Ahead
+% Scenario:
+%       There are m HDVs ahead of the CAV and n HDVs behind the CAV
+%       There also exists a head vehicle at the very beginning
+%       One slight disturbance happens at the head vehicle
+%
+% See Section V.A of the following paper for details
+%   Title : Leading Cruise Control in Mixed Traffic Flow:
+%                      System Modeling,Controllability,and String Stability
+%   Author:Jiawei Wang, Yang Zheng, Chaoyi Chen, Qing Xu and Keqiang Li
+% =========================================================================
 
-%%
-clc;
-clear;
-close all;
+clc; clear; close all;
 
+% -------------------------------------------------------------------------
+%   Parameter setup
+%--------------------------------------------------------------------------
+m = 2;                  % number of preceding vehicles
+n = 2;                  % number of following vehicles
+PerturbedID = 0;        % perturbation on vehicle
+                        % 0. Head vehicle
+                        % 1 - m. Preceding vehicles
+                        % m+2 - n+m+1. Following vehicles
+PerturbedType = 1;      % perturbation type
+                        % 1:Sine-wave Perturbation;  2: Braking
+mix = 1;                % Mix traffic or all HDVs
 
-m = 2; % number of preceding vehicles
-n = 2; % number of following vehicles
-%% Controller
+% ------------------------------------------
+% Connectivity pattern
+% ------------------------------------------
+connectivityType = 1;               % Different connectivity patterns
 
-controllerType = 1; % 1 or 2 or 3 or 4 (represent different connectivity patterns)
+K = [1,-1,1,-1,0,0,-1,-1,-1,-1];    % Feedback gain
 
-K = [1,-1,1,-1,0,0,-1,-1,-1,-1];
-
-disp(['controllerType = ',num2str(controllerType)]);
-
-switch controllerType
+switch connectivityType
     case 1
         K(3:end) = 0;
     case 2
@@ -32,56 +44,72 @@ switch controllerType
         %
 end
 
+% ------------------------------------------
+% Parameters in the car-following model
+% ------------------------------------------
+alpha = 0.6; % Driver Model: OVM
+beta  = 0.9;
+s_st  = 5;
+s_go  = 35;
 
-%% 
-
-PerturbedID = 0;
-% 0. Head vehicle
-% 1 ~ m. Preceding vehicles
-% m+2 ~ n+m+1. Following vehicles
-
-% the PerturbedID-th HDV is under the perturbation
-PerturbedType = 1;
-% 1:Sine Perturbation  2:Brake   3: Initial Deviation
-
-% Mix or not
-mix = 1;
-
-switch mix
-    case 1
-        ActuationTime = 0;
-    case 0
-        ActuationTime = 99999;
-end
-%When will the controller work. 0:Controller Work; Large: won't work
-v_star = 15;
-
-%% Parameters
-
+% Traffic equilibrium
+v_star   = 15;   % Equilibrium velocity
 acel_max = 2;
 dcel_max = -5;
+v_max    = 30;
+s_star   = acos(1-v_star/v_max*2)/pi*(s_go-s_st)+s_st; % Equilibrium spacing
 
-%Simulation
-
-v_max = 30;
-TotalTime = 100;
-Tstep = 0.01;
-NumStep = TotalTime/Tstep;
-
-%Driver Model: OVM
-alpha = 0.6;
-beta = 0.9;
-s_st = 5;
-s_go = 35;
-
-%Equilibrium
-s_star = acos(1-v_star/v_max*2)/pi*(s_go-s_st)+s_st;
-
-
+% linearized model
 alpha1 = alpha*v_max/2*pi/(s_go-s_st)*sin(pi*(s_star-s_st)/(s_go-s_st));
 alpha2 = alpha+beta;
 alpha3 = beta;
 
+% Simulation length
+TotalTime = 100;
+Tstep     = 0.01;
+NumStep   = TotalTime/Tstep;
+
+% ------------------------------------------------------------------------
+% Some output information
+% ------------------------------------------------------------------------
+fprintf('============================================================\n')
+fprintf('    Traffic Simulation when One Perturbation Happens Ahead \n')
+fprintf('          By Jiawei Wang, Yang Zheng \n')
+fprintf('============================================================\n')
+
+fprintf('Number of HDV vehicles behind: %d\n',n)
+fprintf('Number of HDV vehicles ahead : %d\n',m)
+fprintf('Perturbation vehicle Id      : %d\n',PerturbedID)
+fprintf('---------------------------\n')
+fprintf('HDV car-following model: optimal velocity model (OVM) \n')
+fprintf('Parameter setup in HDV car-following model: \n')
+fprintf('    alpha  beta  s_st  s_go  v_max \n    %4.2f  %4.2f  %4.2f  %4.2f  %4.2f\n',alpha,beta,s_st,s_go,v_max)
+fprintf('Coefficients in linearized HDV car-following model: \n')
+fprintf('    alpha1  alpha2  alpha3 \n    %4.2f    %4.2f    %4.2f \n',alpha1,alpha2,alpha3)
+fprintf('---------------------------\n')
+fprintf('Feedback gain of the controller:\n')
+fprintf('mu_{-2}  k_{-2}  mu_{-1}  k_{-1}  mu_{1}  k_{1}  mu_{2}  k_{2}\n')
+fprintf('%4.2f    %4.2f    %4.2f    %4.2f    %4.2f    %4.2f    %4.2f    %4.2f\n',K(1),K(2),K(3),K(4),K(6),K(7),K(8),K(9))
+fprintf('---------------------------\n')
+fprintf('Simulation length (time step): %d  (%4.2f)\n',TotalTime,Tstep)  % this can be improved
+fprintf('-----------------------------------------------------------\n')
+fprintf('   Simulation beigns ...')
+
+% ------------------------------------------------------------------------
+% Traffic simulation
+% ------------------------------------------------------------------------
+
+switch mix
+    case 1
+        % When will the controller work. 0:Controller Work; Large: won't work
+        ActuationTime = 0;
+    case 0
+        ActuationTime = 99999;
+end
+
+% -----------------------------------------------
+% Define state variables
+% -----------------------------------------------
 %Initial State for each vehicle
 S = zeros(NumStep,m+n+2,3);
 dev_s = 0;
@@ -93,33 +121,25 @@ S(1,:,1) = linspace(0,-(m+n+1)*s_star,m+n+2)'+(rand(m+n+2,1)*2*dev_s-dev_s);
 %The vehicles are uniformly distributed on the ring road with a random deviation
 S(1,:,2) = v_ini*ones(m+n+2,1)+(rand(m+n+2,1)*2*dev_v-dev_v);
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-
+% meaning of parameters
 % 1:head vehicle
 % 2~(m+1): preceding vehicles
 % m+2:CAV
 % (m+3)~(m+n+2): following vehicles
-
 ID = zeros(1,m+n+2);
 if mix
     ID(m+2) = 1;
 end
-%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 X = zeros(2*(m+n+1),NumStep);
-%0. HDV  1. CAV
 u = zeros(NumStep,1);
+V_diff = zeros(NumStep,m+n+1);  %Velocity Difference
+D_diff = zeros(NumStep,m+n+1);  %Following Distance
 
-%Velocity Difference
-V_diff = zeros(NumStep,m+n+1);
-%Following Distance
-D_diff = zeros(NumStep,m+n+1);
-
-
-%% Simulation begins
-
+% ---------------------------------------------------------
+% Simulation starts here
+% ---------------------------------------------------------
+tic
 for k = 1:NumStep-1
     %Update acceleration
     V_diff(k,:) = S(k,1:(end-1),2)-S(k,2:end,2);
@@ -184,9 +204,15 @@ for k = 1:NumStep-1
     
     
 end
+tsim = toc;
 
+fprintf('  ends at %6.4f seconds \n', tsim);
 
-%% Plot the velocity
+% ------------------------------------------------------------------------
+%  Plot the results
+% ------------------------------------------------------------------------
+fprintf('-----------------------------------------------------------\n')
+fprintf('    Now plot the velocity profiles for demonstration, please wait ... \n')
 
 Wsize = 22;
 figure;
@@ -202,7 +228,6 @@ p3 = plot(Tstep:Tstep:TotalTime,S(:,i,2),'-','linewidth',2,'Color',[244, 53, 124
 for i=(m+3):(n+m+2)
     p4 = plot(Tstep:Tstep:TotalTime,S(:,i,2),'-','linewidth',2,'Color',[67, 121, 227]/255);
 end
-
 
 set(gca,'TickLabelInterpreter','latex','fontsize',Wsize-4);
 grid on;
@@ -221,9 +246,6 @@ switch PerturbedType
         set(gca,'xlim',[20,30]);
 end
 
-
-
-
 if m == 0
     l = legend([p1 p3 p4],'Head vehicle','CAV','HDVs behind','Location','NorthEast');
 elseif n == 0
@@ -233,8 +255,6 @@ l = legend([p1 p2 p3 p4],'Head vehicle','HDVs ahead','CAV','HDVs behind','Locati
 end
 
 l.Position=[0.5,0.6,0.4,0.3];
-
-
 
 set(gcf,'Position',[250 150 480 350]);
 fig = gcf;

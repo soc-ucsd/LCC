@@ -55,12 +55,20 @@ NumStep   = TotalTime/Tstep;
 % ------------------------------------------------------------------------
 % Some output information
 % ------------------------------------------------------------------------
-fprintf('-----------------------------------------------------------\n')
+fprintf('============================================================\n')
 fprintf('    Demo: Free-Driving Leading Cruise Control \n')
 fprintf('          By Jiawei Wang, Yang Zheng \n')
+fprintf('============================================================\n')
+
 fprintf('Number of HDV vehicles behind: %d\n',n)
 fprintf('Perturbation vehicle Id      : %d\n',PerturbedID)
-fprintf('HDV car-following model      : %4.2f  %4.2f\n',alpha,beta)  % this can be improved
+fprintf('---------------------------\n')
+fprintf('HDV car-following model: optimal velocity model (OVM) \n')
+fprintf('Parameter setup in HDV car-following model: \n')
+fprintf('    alpha  beta  s_st  s_go  v_max \n    %4.2f  %4.2f  %4.2f  %4.2f  %4.2f\n',alpha,beta,s_st,s_go,v_max)
+fprintf('Coefficients in linearized HDV car-following model: \n')
+fprintf('    alpha1  alpha2  alpha3 \n    %4.2f    %4.2f    %4.2f \n',alpha1,alpha2,alpha3)
+fprintf('---------------------------\n')
 fprintf('Simulation length (time step): %d  (%4.2f)\n',TotalTime,Tstep)  % this can be improved
 fprintf('-----------------------------------------------------------\n')
 fprintf('   Simulation beigns ...')
@@ -107,7 +115,7 @@ for mix = 0:1
     end
     
     X = zeros(2*(m+n+1),NumStep);
-    u = zeros(NumStep,1);               % 0. HDV  1. CAV
+    u = zeros(NumStep,1);               
     V_diff = zeros(NumStep,m+n+1);      % Velocity Difference
     D_diff = zeros(NumStep,m+n+1);      % Following Distance
     

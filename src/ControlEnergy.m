@@ -19,7 +19,8 @@ addpath('..\_model');
 
 FD_bool = 1;            % mode of the LCC system
                         % 0. CF-LCC; 1. FD-LCC
-s_star = 20;            % Equilibrium velocity
+s_star = 20;            % Equilibrium spacing
+                        % correspond to an equilibrium velocity of 15 m/s
 
 % ------------------------------------------
 % Parameters in the car-following model
@@ -55,12 +56,17 @@ TransferEnergy = zeros(length(N_collected),length(T_collected));
 % -------------------------------------------------------------------------
 % Some output information
 % -------------------------------------------------------------------------
-fprintf('-----------------------------------------------------------\n')
-fprintf('    Control Energy of Free-Driving LCC \n')
-fprintf('          By Jiawei Wang, Yang Zheng \n')
-fprintf('System size              : ');fprintf('%d ',N_collected);fprintf('\n')
-fprintf('Time length              : ');fprintf('%d ',T_collected);fprintf('\n')
-fprintf('HDV car-following model  : %4.2f  %4.2f\n',alpha,beta)  % this can be improved
+fprintf('=====================================================================\n')
+fprintf('           Control Energy of Free-Driving LCC \n')
+fprintf('                 By Jiawei Wang, Yang Zheng \n')
+fprintf('=====================================================================\n')
+fprintf('System size (number of HDVs behind) : ');fprintf('%d ',N_collected);fprintf('\n')
+fprintf('Time length                         : ');fprintf('%d ',T_collected);fprintf('\n')
+fprintf('HDV car-following model: optimal velocity model (OVM) \n')
+fprintf('Parameter setup in HDV car-following model: \n')
+fprintf('    alpha  beta  s_st  s_go  v_max \n    %4.2f  %4.2f  %4.2f  %4.2f  %4.2f\n',alpha,beta,s_st,s_go,v_max)
+fprintf('Coefficients in linearized HDV car-following model: \n')
+fprintf('    alpha1  alpha2  alpha3 \n    %4.2f    %4.2f    %4.2f \n',alpha1,alpha2,alpha3)
 fprintf('-----------------------------------------------------------\n')
 fprintf('   Numerical calculation beigns ...')
 

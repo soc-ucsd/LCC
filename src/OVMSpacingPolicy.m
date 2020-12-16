@@ -1,32 +1,48 @@
-%% Description
-% Plot the illustration for spacing policy in OVM model.
-% Correspond to Fig. 2(b) in our paper.
+% =========================================================================
+%           Illustration for Desired Velocity Function in OVM
+%
+% Numerically calculate the three energy-related metrics of the FD-LCC 
+% system at different system sizes and time lengths
+%
+% See II.A of the following paper for details
+%   Title : Leading Cruise Control in Mixed Traffic Flow:
+%                      System Modeling,Controllability,and String Stability
+%   Author:Jiawei Wang, Yang Zheng, Chaoyi Chen, Qing Xu and Keqiang Li
+% =========================================================================
 
+clc;clear; close all;
 
-clc;
-close all;
-clear;
-
-%% 
-
+% -------------------------------------------------------------------------
+%   Parameter setup in OVM model
+% -------------------------------------------------------------------------
 alpha = 0.6;
 beta = 0.9;
-
 s_st = 5;
 s_go = 35;
-
 v_max = 30;
 
-s = 0:0.1:40;
-v = zeros(size(s));
-
-
-
-v = v_max/2*(1-cos(pi*(s-s_st)/(s_go-s_st)));
-
-
+s = 0:0.1:40;                                   % spacing
+v = v_max/2*(1-cos(pi*(s-s_st)/(s_go-s_st)));   % desired velocity
 v(find(s<s_st)) = 0;
 v(find(s>s_go)) = v_max;
+
+% -------------------------------------------------------------------------
+% Some output information
+% -------------------------------------------------------------------------
+fprintf('=====================================================================\n')
+fprintf('      Illustration for Desired Velocity Function in OVM \n')
+fprintf('                 By Jiawei Wang, Yang Zheng \n')
+fprintf('=====================================================================\n')
+fprintf('HDV car-following model: optimal velocity model (OVM) \n')
+fprintf('Parameter setup in HDV car-following model: \n')
+fprintf('    alpha  beta  s_st  s_go  v_max \n    %4.2f  %4.2f  %4.2f  %4.2f  %4.2f\n',alpha,beta,s_st,s_go,v_max)
+fprintf('-----------------------------------------------------------\n')
+
+
+% -------------------------------------------------------------------------
+%  Plot Results 
+% -------------------------------------------------------------------------
+fprintf('    Now plot the illustration for desired velocity function, please wait ... \n')
 
 f1 = figure(1);
 plot(s,v,'linewidth',2);

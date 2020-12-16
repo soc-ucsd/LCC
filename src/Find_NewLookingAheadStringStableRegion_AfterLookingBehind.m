@@ -1,10 +1,16 @@
-%% Description
-% Find the new "looking ahead" head-to-tail string stable region after incorporation of one vehicle behind
+% =========================================================================
+%               New "Looking Ahead" LCC
+%
+% Find the new "looking ahead" head-to-tail string stable regions after 
+% incorporating the motion of the vehicles behind 
+%
+% See Section IV.B (Fig. 7(c)-(f)) of the following paper for details
+%   Title : Leading Cruise Control in Mixed Traffic Flow:
+%                      System Modeling,Controllability,and String Stability
+%   Author:Jiawei Wang, Yang Zheng, Chaoyi Chen, Qing Xu and Keqiang Li
+% =========================================================================
 
-
-clc;
-clear;
-close all;
+clc;clear; close all;
 
 
 %% Parameters
@@ -30,6 +36,9 @@ elseif id_behind == 2
     mu_behind = -1;
     k_behind = -1;
 end
+
+save_data_bool = 1; 
+% 0. Not save the data; 1. Save the data
 
 % id of the HDV that has feedback
 for id_ahead = -2:-1
@@ -102,9 +111,11 @@ for id_ahead = -2:-1
     
     close(h);
     
+    if save_data_bool
     save(['..\_data\',date,'_SSRegion_WithLookingBehind_id_behind_',num2str(id_behind),...
         '_mu_behind_',num2str(mu_behind),'_k_behind_',num2str(k_behind)...
         '_n_',num2str(n),'_m_',num2str(m),...
         '_DriverDynamics_',num2str(DriverDynamics),'_FeedbackID_',num2str(id_ahead),'.mat']);
+    end
     
 end

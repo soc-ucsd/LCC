@@ -1,6 +1,6 @@
 <!-- docs/_sidebar.md -->
 
-* [Home](/)
+* [Introduction](/)
 * [About](about.md)
 * [People](wjw/people.md)
 

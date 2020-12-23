@@ -1,8 +1,8 @@
 <!-- docs/_sidebar.md -->
 - **Leading Cruise Control**
 - [Introduction](home.md)
-- [About](about.md)
+- [About](mixed-traffic.md)
 - [Test](test.md)
 - **Contacts**
-- [People](wjw/people.md)
+- [People](supplement/people.md)
 

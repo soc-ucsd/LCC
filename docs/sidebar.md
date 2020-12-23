@@ -5,4 +5,5 @@
 - [Test](test.md)
 - **Contacts**
 - [People](supplement/people.md)
+- [Help](supplement/help.md)
 

@@ -4,4 +4,4 @@ Besides my advisor Prof. Keqiang Li and other teachers in my lab, I would also l
 
 ## Contact
 
-If you are interested in my work, please feel free to send me an e-mail (wang-jw18@mails.tsinghua.edu.cn) and let me know. I will be really glad and excited to work together with some amazing people like you!
+See [my website](https://wangjw18.github.io) to know more about me. If you are interested in my work, please feel free to send me an e-mail (wang-jw18@mails.tsinghua.edu.cn) and let me know. I will be really glad and excited to work together with some amazing people like you!

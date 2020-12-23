@@ -16,4 +16,7 @@ to force the content to wrap and span multiple lines.
 force the content to wrap and span multiple lines.
 
 Try on latex math support.
+
 $E=mc^2$
+
+$\min{F(x)}$

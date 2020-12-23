@@ -1,6 +1,6 @@
 <!-- docs/_sidebar.md -->
 - **Leading Cruise Control**
-- [Introduction](/)
+- [Introduction](home.md)
 - [About](about.md)
 - [Test](test.md)
 - **Contacts**

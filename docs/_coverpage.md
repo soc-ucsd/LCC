@@ -10,4 +10,4 @@
 - General communication topology
 
 [GitHub](https://github.com/wangjw18/LCC)
-[Get Started](https://wangjw18.github.io/LCC/#/README)
+[Get Started](home.md)

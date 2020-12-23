@@ -14,7 +14,7 @@ In particular, we demonstrate three important topics in mixed traffic flow.
 To run the code, the Modeling package, [YALMIP](https://yalmip.github.io/), and the optimization solver, [MOSEK](https://www.mosek.com/), are needed to solve the semidefinite program in controller synthesis
 
 
-## Topic 1: Smoothing Traffic Flow via Autonomous Vehicles <a name="Topic-1"></a>
+## Topic 1: Smoothing Traffic Flow via Autonomous Vehicles 
 
 Although large-scale numerical simulations and small-scale experiments have shown promising results, a comprehensive theoretical understanding to smooth traffic flow via AVs is lacking. In this paper, from a control-theoretic perspective, we establish analytical results on the **controllability**, **stabilizability**, and **reachability** of a mixed traffic system consisting of HDVs and AVs in a ring road.
 

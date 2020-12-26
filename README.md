@@ -19,4 +19,4 @@ The CAV maintains car-following operations, adapting to the states of its preced
 See [here](https://wangjw18.github.io/files/2020-CDC-slides.pdf) for presentation slides.
 
 ## Contacts
-Relavent project: [MCMT](https://github.com/wangjw18/MCMT) (modeling and control of mixed traffic flow).
+Relavent project: [mixed-traffic](https://github.com/wangjw18/MCMT) (modeling and control of mixed traffic flow).

@@ -12,7 +12,9 @@ Two special cases of LCC are **Car-Driving LCC (CF-LCC)** and **Free-Driving LCC
 The CAV maintains car-following operations, adapting to the states of its preceding vehicles, and it also aims to **lead the motion of its following vehicles**. Specifically, by controlling of the CAV, LCC aims to attenuate downstream traffic perturbations and **smooth upstream traffic flow actively**.
 
 ## Publications
-Wang, J., Zheng, Y., Chen, C., Xu, Q., & Li, K. (2020). Leading cruise control in mixed traffic flow. 59th IEEE Conference on Decision and Control, 2020. Available: https://arxiv.org/abs/2007.11753
+1. Wang, J., Zheng, Y., Chen, C., Xu, Q., & Li, K. (2020). Leading Cruise Control in Mixed Traffic Flow: System Modeling, Controllability, and String Stability. arXiv preprint arXiv:2012.04313. [link](https://arxiv.org/abs/2012.04313)
+2. Wang, J., Zheng, Y., Chen, C., Xu, Q., & Li, K. (2020). Leading cruise control in mixed traffic flow. 59th IEEE Conference on Decision and Control, 2020. [link](https://arxiv.org/abs/2007.11753)
+
 
 See [here](https://wangjw18.github.io/files/2020-CDC-slides.pdf) for presentation slides.
 

@@ -1,13 +1,14 @@
 <!-- _coverpage.md -->
 
-![logo](img/logo.png)
+![logo](img/coverpage.png)
 
-# Leading Cruise Control
+# Mixed Traffic Control
 
-> A control framework for CAVs in mixed traffic flow.
+> Modeling and Control of Mixed Traffic Flow.
 
-- Serve as both a follower and a leader
-- General communication topology
+- Coexistence of autonomous vehicles and human-driven vehicles;
+- Rigorous analysis of fundamental properties of system dynamics;
+- Optimal control of AVs to improve the entire traffic performance.
 
 [GitHub](https://github.com/wangjw18/LCC)
 [Get Started](home.md)

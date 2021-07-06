@@ -202,7 +202,7 @@ end
 tsim = toc;
 
 fprintf('  ends at %6.4f seconds \n', tsim);
-fprintf('   Computing velocity smoothing factor ...');
+fprintf('   Computing aggregated velocity error ... \n');
 % -------------------------------------------------------------------------
 % Calculate Aggregate Squared Velocity Error
 % -------------------------------------------------------------------------
@@ -213,7 +213,28 @@ for i=20/Tstep:50/Tstep
     VelocityDeviation_HDV = VelocityDeviation_HDV + sum((S_HDV(i,2:end,2)-v_star).^2);
     VelocityDeviation_LCC = VelocityDeviation_LCC + sum((S_LCC(i,2:end,2)-v_star).^2);
 end
-fprintf(' which is %6.4f\n',(VelocityDeviation_HDV-VelocityDeviation_LCC)/VelocityDeviation_HDV)
+fprintf(' Looking ahead only (all HDVs)  |   LCC       |  Improvement rate \n')
+fprintf(' %.2f                       |  %.2f   |  %6.4f \n',VelocityDeviation_HDV,VelocityDeviation_LCC,(VelocityDeviation_HDV-VelocityDeviation_LCC)/VelocityDeviation_HDV)
+
+fprintf('   Computing fuel consumption ... \n');
+% -------------------------------------------------------------------------
+% Calculate Fuel Consumption
+% -------------------------------------------------------------------------
+FuelConsumption_HDV = 0;
+FuelConsumption_LCC = 0;
+
+for i=20/Tstep:50/Tstep
+    R_HDV  = 0.333 + 0.00108*S_HDV(i,2:end,2).^2 + 1.2*S_HDV(i,2:end,3);
+    F_HDV  = 0.444 + 0.09*R_HDV.*S_HDV(i,2:end,2) + 0.054 * max(0,S_HDV(i,2:end,3)).^2.*S_HDV(i,2:end,2);
+    F_HDV(R_HDV <= 0) = 0.444;
+    FuelConsumption_HDV = FuelConsumption_HDV + sum(F_HDV)*Tstep;
+    R_LCC  = 0.333 + 0.00108*S_LCC(i,2:end,2).^2 + 1.2*S_LCC(i,2:end,3);
+    F_LCC  = 0.444 + 0.09*R_LCC.*S_LCC(i,2:end,2) + 0.054 * max(0,S_LCC(i,2:end,3)).^2.*S_LCC(i,2:end,2);
+    F_LCC(R_LCC <= 0) = 0.444;
+    FuelConsumption_LCC = FuelConsumption_LCC + sum(F_LCC)*Tstep;
+end
+fprintf(' Looking ahead only (all HDVs)  |   LCC       |  Improvement rate \n')
+fprintf(' %.2f                         |  %.2f     |  %6.4f \n',FuelConsumption_HDV,FuelConsumption_LCC,(FuelConsumption_HDV-FuelConsumption_LCC)/FuelConsumption_HDV)
 
 % ------------------------------------------------------------------------
 %  Plot Video 

@@ -202,19 +202,19 @@ end
 tsim = toc;
 
 fprintf('  ends at %6.4f seconds \n', tsim);
-fprintf('   Computing aggregated velocity error ... \n');
+fprintf('   Computing aggregated spacing error ... \n');
 % -------------------------------------------------------------------------
-% Calculate Aggregate Squared Velocity Error
+% Calculate Aggregated Spacing Error
 % -------------------------------------------------------------------------
 VelocityDeviation_HDV = 0;
 VelocityDeviation_LCC = 0;
 
-for i=20/Tstep:50/Tstep
-    VelocityDeviation_HDV = VelocityDeviation_HDV + sum((S_HDV(i,2:end,2)-v_star).^2);
-    VelocityDeviation_LCC = VelocityDeviation_LCC + sum((S_LCC(i,2:end,2)-v_star).^2);
+for i=20/Tstep:40/Tstep
+    VelocityDeviation_HDV = VelocityDeviation_HDV + sum(abs(S_HDV(i,2:end,2)-v_star))*Tstep;
+    VelocityDeviation_LCC = VelocityDeviation_LCC + sum(abs(S_LCC(i,2:end,2)-v_star))*Tstep;
 end
 fprintf(' Looking ahead only (all HDVs)  |   LCC       |  Improvement rate \n')
-fprintf(' %.2f                       |  %.2f   |  %6.4f \n',VelocityDeviation_HDV,VelocityDeviation_LCC,(VelocityDeviation_HDV-VelocityDeviation_LCC)/VelocityDeviation_HDV)
+fprintf(' %.2f                         |  %.2f     |  %6.4f \n',VelocityDeviation_HDV,VelocityDeviation_LCC,(VelocityDeviation_HDV-VelocityDeviation_LCC)/VelocityDeviation_HDV)
 
 fprintf('   Computing fuel consumption ... \n');
 % -------------------------------------------------------------------------
@@ -223,7 +223,7 @@ fprintf('   Computing fuel consumption ... \n');
 FuelConsumption_HDV = 0;
 FuelConsumption_LCC = 0;
 
-for i=20/Tstep:50/Tstep
+for i=20/Tstep:40/Tstep
     R_HDV  = 0.333 + 0.00108*S_HDV(i,2:end,2).^2 + 1.2*S_HDV(i,2:end,3);
     F_HDV  = 0.444 + 0.09*R_HDV.*S_HDV(i,2:end,2) + 0.054 * max(0,S_HDV(i,2:end,3)).^2.*S_HDV(i,2:end,2);
     F_HDV(R_HDV <= 0) = 0.444;

@@ -202,9 +202,9 @@ end
 tsim = toc;
 
 fprintf('  ends at %6.4f seconds \n', tsim);
-fprintf('   Computing aggregated spacing error ... \n');
+fprintf('   Computing aggregated velocity error ... \n');
 % -------------------------------------------------------------------------
-% Calculate Aggregated Spacing Error
+% Calculate Aggregated Velocity Error
 % -------------------------------------------------------------------------
 VelocityDeviation_HDV = 0;
 VelocityDeviation_LCC = 0;

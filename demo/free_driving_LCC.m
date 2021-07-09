@@ -10,7 +10,7 @@
 %   Author:Jiawei Wang, Yang Zheng, Chaoyi Chen, Qing Xu and Keqiang Li
 % =========================================================================
 
-clc;clear; close all;
+clc; clear; close all;
 
 % -------------------------------------------------------------------------
 %   Parameter setup
@@ -26,7 +26,7 @@ PerturbedID = 2;   % perturbation on vehicle
                    % m+2 - n+m+1. Following vehicles
 PerturbedType = 2; % perturbation type
                    % 1:Sine-wave Perturbation;  2: Braking
-
+                   
 % ------------------------------------------
 % Parameters in the car-following model
 % ------------------------------------------
@@ -56,10 +56,9 @@ NumStep   = TotalTime/Tstep;
 % Some output information
 % ------------------------------------------------------------------------
 fprintf('============================================================\n')
-fprintf('    Demo: Free-Driving Leading Cruise Control \n')
+fprintf('    Demo: Car-Following Leading Cruise Control \n')
 fprintf('          By Jiawei Wang, Yang Zheng \n')
 fprintf('============================================================\n')
-
 fprintf('Number of HDV vehicles behind: %d\n',n)
 fprintf('Perturbation vehicle Id      : %d\n',PerturbedID)
 fprintf('---------------------------\n')
@@ -78,7 +77,7 @@ fprintf('   Simulation beigns ...')
 % ------------------------------------------------------------------------
 % Mix or not
 %   mix  = 0: All HDVs 
-%   mix  = 1: there exists one CAV -- Free-driving LCC 
+%   mix  = 1: there exists one CAV -- Free-driving LCC
 
 tic
 for mix = 0:1 
@@ -115,7 +114,7 @@ for mix = 0:1
     end
     
     X = zeros(2*(m+n+1),NumStep);
-    u = zeros(NumStep,1);               
+    u = zeros(NumStep,1);               % 0. HDV  1. CAV
     V_diff = zeros(NumStep,m+n+1);      % Velocity Difference
     D_diff = zeros(NumStep,m+n+1);      % Following Distance
     
@@ -152,12 +151,6 @@ for mix = 0:1
         acel(acel>acel_max) = acel_max;
         acel(acel<dcel_max) = dcel_max;
         
-        %
-        % SD as ADAS to prevent crash
-        % 
-        acel_sd = (S(k,2:end,2).^2-S(k,1:(end-1),2).^2)./2./D_diff(k,:);
-        acel(acel_sd>abs(dcel_max)) = dcel_max;
-        
         S(k,2:end,3) = acel;
         S(k,1,3)     = 0; % the preceding vehicle
         
@@ -186,6 +179,14 @@ for mix = 0:1
             end
             S(k,m+2,3) = u(k);
         end
+        
+        %
+        % SD as ADAS to prevent crash
+        % 
+        acel_sd     = (S(k,2:end,2).^2-S(k,1:(end-1),2).^2)./2./D_diff(k,:);
+        acel_temp   = S(k,:,3);
+        acel_temp(acel_sd>abs(dcel_max)) = dcel_max;
+        S(k,:,3)    = acel_temp;
         
         S(k+1,:,2) = S(k,:,2) + Tstep*S(k,:,3);
         S(k+1,:,1) = S(k,:,1) + Tstep*S(k,:,2);
@@ -246,7 +247,6 @@ fprintf('    Now record a video for demonstration, please wait ... \n')
 
 videoOutput = 0;  % whether save into a video file
 vehicleSize = 12; % MarkerSize
-VelocityDisplayAlpha = 2;
 FSize = 16;
 VehicleColor = [93,40,132]/255;
 if FD_bool
@@ -285,17 +285,17 @@ original_x1 = S_HDV(1,2,1)+20;
 pstart1 = plot(original_x1,0,'o','MarkerSize',vehicleSize/2,...
     'MarkerFaceColor','k','MarkerEdgeColor','none');
 
-axis([original_x1-250,original_x1,-12,12]);
+axis([original_x1-250,original_x1,-6,6]);
 set(gcf,'Position',[150,100,600,450]);
 % axis off;
 
 text1 = title('Time = 0 s','Interpreter','latex','Fontsize',FSize);
 %text1.HorizontalAlignment = 'center';
 set(gca,'TickLabelInterpreter','latex');
-set(gca,'YTick',-12:12:12);
+set(gca,'YTick',-6:6:6);
 
 yl = ylabel('Velocity Perturbation ($\mathrm{m/s}$)','Interpreter','Latex','Color','k','FontSize',FSize);
-yl.Position = [-262,-18,-1];
+yl.Position = [-262,-10,-1];
 yl.Position(1) = yl.Position(1) + 15*15;
 
 ax2 = subplot('Position',Position2);
@@ -325,11 +325,11 @@ original_x2 = S_LCC(1,2,1)+20;
 pstart2     = plot(original_x2,0,'o','MarkerSize',vehicleSize/2,...
     'MarkerFaceColor','k','MarkerEdgeColor','none');
 
-axis([original_x2-250,original_x2,-12,12]);
+axis([original_x2-250,original_x2,-6,6]);
 set(gcf,'Position',[150,100,700,330]);
 % axis off;
 set(gca,'TickLabelInterpreter','latex');
-set(gca,'YTick',-12:12:12);
+set(gca,'YTick',-6:6:6);
 
 xlabel('Position ($\mathrm{m}$)','Interpreter','Latex','Color','k','FontSize',FSize);
 
@@ -355,12 +355,12 @@ for i=15/Tstep:dt/Tstep:50/Tstep
     ax1;
     for id = 2:n+2
         line1(id).XData = linspace(S_HDV(i,id-1,1),S_HDV(i,id,1),10);
-        line1(id).YData = linspace(VelocityDisplayAlpha*(S_HDV(i,id-1,2)-15),VelocityDisplayAlpha*(S_HDV(i,id,2)-15),10);
+        line1(id).YData = linspace(S_HDV(i,id-1,2)-15,S_HDV(i,id,2)-15,10);
     end
     
     for id = 2:n+2
         position1(id).XData = S_HDV(i,id,1);
-        position1(id).YData = VelocityDisplayAlpha*(S_HDV(i,id,2)-15);
+        position1(id).YData = S_HDV(i,id,2)-15;
     end
     original_x1 = original_x1 + 15*dt;
     yl.Position(1) = yl.Position(1) + 15*dt;
@@ -374,12 +374,12 @@ for i=15/Tstep:dt/Tstep:50/Tstep
     ax2;
     for id = 2:n+2
         line2(id).XData = linspace(S_LCC(i,id-1,1),S_LCC(i,id,1),10);
-        line2(id).YData = linspace(VelocityDisplayAlpha*(S_LCC(i,id-1,2)-15),VelocityDisplayAlpha*(S_LCC(i,id,2)-15),10);
+        line2(id).YData = linspace(S_LCC(i,id-1,2)-15,S_LCC(i,id,2)-15,10);
     end
     
     for id = 2:n+2
         position2(id).XData = S_LCC(i,id,1);
-        position2(id).YData = VelocityDisplayAlpha*(S_LCC(i,id,2)-15);
+        position2(id).YData = S_LCC(i,id,2)-15;
     end
     %original_x2 = original_x2 + 15*dt;
     original_x2 = S_LCC(i,2,1)+20;
@@ -398,3 +398,4 @@ end
 if videoOutput
     close(myVideo);
 end
+

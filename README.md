@@ -11,6 +11,7 @@ Two special cases of LCC are **Car-Driving LCC (CF-LCC)** and **Free-Driving LCC
 <img src="docs/img/FD-CF.png" align="center" width="100%"/>
 <img src="docs/img/CFLCC.gif" align="center" width="49.5%"/>
 <img src="docs/img/FDLCC.gif" align="center" width="49.5%"/>
+(Demo scenario: the CAV responds to the motion of the two HDVs directly behind)
 
 ## Features
 The CAV maintains car-following operations, adapting to the states of its preceding vehicles, and it also aims to **lead the motion of its following vehicles**. Specifically, by controlling of the CAV, LCC aims for both of the following two objectives:

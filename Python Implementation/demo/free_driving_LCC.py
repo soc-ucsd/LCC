@@ -17,6 +17,7 @@ from matplotlib import animation
 #   Title : Leading Cruise Control in Mixed Traffic Flow:
 #                      System Modeling,Controllability,and String Stability
 #   Author:Jiawei Wang, Yang Zheng, Chaoyi Chen, Qing Xu and Keqiang Li
+#   Python Version implemented by Haoxin Du, Meihui Liu, Yue Yin
 # =========================================================================
 
 

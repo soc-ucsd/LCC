@@ -200,19 +200,19 @@ The matrics is calculated on time length 10, 20, 30 and system size 1 to 6.
 
 1. Free-Driving:
 - Metric 1:
-![FD for Matric1](docs/img/CE-FD1.png)
+![FD for Matric1](img/CE-FD1.png)
 - Metric 2:
-![FD for Matric2](docs/img/CE-FD2.png)
+![FD for Matric2](img/CE-FD2.png)
 - Metric 3:
-![FD for Matric3](docs/img/CE-FD3.png)
+![FD for Matric3](img/CE-FD3.png)
 
 1. Car-Following:
 - Metric 1:
-![CF for Matric1](docs/img/CE-CF1.png)
+![CF for Matric1](img/CE-CF1.png)
 - Metric 2:
-![CF for Matric2](docs/img/CE-CF2.png)
+![CF for Matric2](img/CE-CF2.png)
 - Metric 3:
-![CF for Matric3](docs/img/CE-CF3.png)
+![CF for Matric3](img/CE-CF3.png)
 
 
 #### Find_NewLookingAheadStringStableRegion_AfterLookingBehind[.m](https://github.com/soc-ucsd/LCC/blob/main/src/Find_NewLookingAheadStringStableRegion_AfterLookingBehind.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/src/Find_NewLookingAheadStringStableRegion_AfterLookingBehind.py)
@@ -360,13 +360,13 @@ m = 2: Number of the preceding HDVs
 
 Output: 
 - Vehicle id -2
-![Vehicle id -2](docs/img/SS-2.png)
+![Vehicle id -2](img/SS-2.png)
 - Vehicle id -1
-![Vehicle id -1](docs/img/SS-1.png)
+![Vehicle id -1](img/SS-1.png)
 - Vehicle id 1
-![Vehicle id 1](docs/img/SS1.png)
+![Vehicle id 1](img/SS1.png)
 - Vehicle id 2
-![Vehicle id 2](docs/img/SS2.png)
+![Vehicle id 2](img/SS2.png)
 
 #### TrafficSimulation_PerturbationAhead
 
@@ -378,21 +378,21 @@ The definition of the head-to-tail transfer function is mentioned above.
 
 Example output from Python:             |  Example output from Matlab:
 :--------------------------------------:|:-------------------------:
-![python output](docs/img/FreqDomainPY.png)|  ![matlab output](docs/img/FreqDomainMatlab.png)
+![python output](img/FreqDomainPY.png)|  ![matlab output](img/FreqDomainMatlab.png)
 
 #### NewLookingAheadStringStableRegion_AfterLookingBehind[.m](https://github.com/soc-ucsd/LCC/blob/main/src/NewLookingAheadStringStableRegion_AfterLookingBehind.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/src/NewLookingAheadStringStableRegion_AfterLookingBehind.py)
 This function is used to find the "looking ahead" head-to-tail string stable regions after incorportating the motion of one of vehicle behind (defined by `id_behind` in the code).
 
 Example output from Python:             |  Example output from Matlab:
 :--------------------------------------:|:-------------------------:
-![python output](docs/img/NewLookAheadPY.png)|  ![matlab output](docs/img/NewLookAheadMatlab.png)
+![python output](img/NewLookAheadPY.png)|  ![matlab output](img/NewLookAheadMatlab.png)
 
 #### OVMSpacingPolicy[.m](https://github.com/soc-ucsd/LCC/blob/main/src/OVMSpacingPolicy.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/src/OVMSpacingPolicy.py)
 This function is used to calculate the three energy-related metrics of the Free-Driving LCC system at different system sizes and time lengths.
 
 Example output from Python:             |  Example output from Matlab:
 :--------------------------------------:|:-------------------------:
-<img src="docs/img/OVMSpacPY.png" width="425"/>| <img src="docs/img/OVMSpacMatlab.png" width="425"/>
+<img src="img/OVMSpacPY.png" width="425"/>| <img src="img/OVMSpacMatlab.png" width="425"/>
 >See Section II.A of the [paper](https://arxiv.org/abs/2012.04313) for details
 
 #### Plot_NewLookingAheadStringStableRegion_AfterLookingBehind[.m](https://github.com/soc-ucsd/LCC/blob/main/src/Plot_NewLookingAheadStringStableRegion_AfterLookingBehind.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/src/Plot_NewLookingAheadStringStableRegion_AfterLookingBehind.py)

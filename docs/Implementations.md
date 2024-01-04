@@ -24,7 +24,7 @@ The purpose of this function is linearized state-space model for general LCC sys
 
 
 **General System Model Formula:**
-
+![General System Model Formula](img/General_System_Model_Formula1.jpg)
 $$\dot{x}(t)=Ax(t)+Bu(t)+H\tilde{v}_{\mathrm{h}}(t)$$
 
 where $\tilde{v}_{\mathrm{h}}(t)$ denotes the velocity error of the head vehicle. The coefficient matrices $A\in \mathbb{R}^{(2n+2m+2)\times(2n+2m+2)}$, $B,H\in \mathbb{R}^{(2n+2m+2)\times 1}$ are given by 

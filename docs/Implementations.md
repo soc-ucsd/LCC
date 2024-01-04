@@ -1,6 +1,11 @@
 # Implementations
 
 ## Functions
+Contents\
+├── [_data](#_data)\
+├── [_model](#_model)\
+├── [demo](#demo)\
+└── [src](#src)
 
 ### _data
 This is a folder containing prerecorded data for calculations and generated data from functions.

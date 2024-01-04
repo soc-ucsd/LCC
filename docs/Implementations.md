@@ -24,7 +24,6 @@ The purpose of this function is linearized state-space model for general LCC sys
 
 
 **General System Model Formula:**
-![General System Model Formula](img/General_System_Model_Formula1.jpg)
 
 $$\dot{x}(t)=Ax(t)+Bu(t)+H\tilde{v}_{\mathrm{h}}(t)$$
 

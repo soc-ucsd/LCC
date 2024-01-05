@@ -24,7 +24,7 @@ The purpose of this function is linearized state-space model for general LCC sys
 
 
 **General System Model Formula:**
-![General System Model Formula](img/General_System_Model_Formula.jpg)
+![General System Model Formula](img/General_System_Model_Formula1.jpg)
 where ![F](img/F.png) and ![P](img/P.png) shown in [LCC figure](https://github.com/soc-ucsd/LCC/blob/main/docs/img/LCC.png)
 
 

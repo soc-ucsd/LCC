@@ -24,80 +24,10 @@ The purpose of this function is linearized state-space model for general LCC sys
 
 
 **General System Model Formula:**
-![General System Model Formula](img/General_System_Model_Formula1.jpg)
-$$\dot{x}(t)=Ax(t)+Bu(t)+H\tilde{v}_{\mathrm{h}}(t)$$
+![General System Model Formula](img/General_System_Model_Formula.jpg)
+where ![F](img/F.png) and ![P](img/P.png) shown in [LCC figure](https://github.com/soc-ucsd/LCC/blob/main/docs/img/LCC.png)
 
-where $\tilde{v}_{\mathrm{h}}(t)$ denotes the velocity error of the head vehicle. The coefficient matrices $A\in \mathbb{R}^{(2n+2m+2)\times(2n+2m+2)}$, $B,H\in \mathbb{R}^{(2n+2m+2)\times 1}$ are given by 
 
-$$
-A =
-\begin{bmatrix} 
-P_1 & & & & & \\
-P_2 & P_1 & & & & \\
-& \ddots & \ddots & & & \\
-& & P_2 & P_1 & & \\
-& & & S_2 & S_1 \\
-& & & & P_2 & P_1 \\
-& & & & & \ddots & \ddots \\
-& & & & & & P_2 & P_1 
-\end{bmatrix},
-$$
-
-$$
-B = 
-\lbrack
-b_{-m}^{T},\ldots,b_{-1}^{T},b_0^{T},b_1^{T},\ldots,b_n^{T}
-\rbrack^{T},
-$$
-
-$$
-H = 
-\lbrack
-h_{-m}^{T},\ldots,h_{-1}^{T},h_0^{T},h_1^{T},\ldots,h_n^{T}
-\rbrack^{T},
-$$
-
-with block entries as ($i\in \mathcal{F}\cup \mathcal{P}$, $j\in \{0\}\cup\mathcal{F}\cup \mathcal{P} \backslash \{-m\}$)
-
-$$
-P_{1} = 
-\begin{bmatrix} 0 & -1 \\ 
-\alpha_{1} & -\alpha_{2} 
-\end{bmatrix},
-P_{2} = 
-\begin{bmatrix} 0 & 1 \\ 
-0 & \alpha_{3} 
-\end{bmatrix},\,
-b_0 = 
-\begin{bmatrix} 0  \\ 
-1 
-\end{bmatrix},
-b_i = 
-\begin{bmatrix} 0 \\ 
-0 
-\end{bmatrix},\\
-$$
-
-$$
-S_1 = 
-\begin{bmatrix} 0 & -1 \\
-0 & 0 
-\end{bmatrix},
-S_2 = 
-\begin{bmatrix} 0 & 1 \\
- 0 & 0 
- \end{bmatrix},
-h_{-m} = 
-\begin{bmatrix} 1 \\
-\alpha_{3}
-\end{bmatrix},
-h_j = 
-\begin{bmatrix} 0 \\
-0 
-\end{bmatrix}.
-$$
-
-$\mathcal{F}$ is defined as $\{1,2,...,n\}$ and $\mathcal{P}$ is defined as $\{-1,-2,...,-m\}$ shown in LCC figure
 
 
 #### SystemModel_CF[.m](https://github.com/soc-ucsd/LCC/blob/main/_model/SystemModel_CF.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/_model/SystemModel_CF.py)
@@ -109,37 +39,10 @@ The purpose of this function is linearized state-space model for Car-following s
 
 **Output:**
 - state-space model: [A, B]
-$\dot{x} = Ax + Bu$
+![state_model_formula](img/state_model_formula.png)
 
 **Car-following system model formula:**
-$\dot{x}\_{\mathrm{c}}(t)=A\_{\mathrm{c}}x\_\mathrm{c}(t)+B\_1 \hat{u}(t)+H\_1 \tilde{v}\_{\mathrm{h}}(t)$
-where $A_{\mathrm{c}}\in \mathbb{R}^{(2n+2)\times(2n+2)}$, $B_1,H_1\in \mathbb{R}^{(2n+2)\times 1}$ are given by
-
-$$
-A_{\mathrm{c}}=
-\begin{bmatrix} P_1 & & & \\
-P_2 & P_1 & &    \\
-& \ddots& \ddots&  \\
-& & P_2& P_1 \\
-\end{bmatrix}
-B_1=
-\begin{bmatrix}
-0\\
-1\\
-0\\ 
-\vdots \\
-0
-\end{bmatrix},
-H_1=
-\begin{bmatrix}
-1\\
-\alpha_3 \\
-0\\
-\vdots \\
-0
-\end{bmatrix}.
-$$
-
+![Car-following_system_model_formula](img/Car-following_system_model_formula.png)
 > (For more information of how to derive from general formula to car-following formula, please check the [LCC paper](https://arxiv.org/abs/2012.04313))
 
 #### SystemModel_FD[.m](https://github.com/soc-ucsd/LCC/blob/main/_model/SystemModel_FD.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/_model/SystemModel_FD.py)
@@ -151,19 +54,11 @@ The purpose of this function is linearized state-space model for free-driving sy
 
 **Output:**
 - state-space model: [A, B]
-$\dot{x} = Ax + Bu$
+![state_model_formula](img/state_model_formula.png)
 
 **Free-driving system model formula:**
-$\dot{x}\_{\mathrm{f}}(t)=A\_{\mathrm{f}}x\_\mathrm{f}(t)+B\_1 u(t),$ where $A_{\mathrm{f}}\in \mathbb{R}^{(2n+2)\times(2n+2)}$ is given by
 
-$$
-A_{\mathrm{f}}=
-\begin{bmatrix} S_1 & & & \\
-P_2 & P_1 & &    \\
-& \ddots& \ddots&  \\
-& & P_2& P_1 \\
-\end{bmatrix}.
-$$
+![Free-driving_system_model_formula](img/Free-driving_system_model_formula.png)
 
 >(For more information of how to derive from general formula to free-driving formula, please check the [LCC paper](https://arxiv.org/abs/2012.04313))
 
@@ -205,16 +100,7 @@ This function serves the same purpose as **free_driving_LCC**[.m](https://github
 #### ControEngergy[.m](https://github.com/soc-ucsd/LCC/blob/main/src/ControlEnergy.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/src/ControlEnergy.py)
 The purpose of this file is numerically calculate the three energy-related metrics of the FD-LCC system at different system sizes and time lengths
 
-For a controllable dynamical system $\dot{x}(t)=Ax(t)+Bu(t)$, its Controllability Gramian at time $t$ is defined as $W(t)=\int_{0}^{t} e^{A \tau} B B^{T} e^{A^{T} \tau} d \tau$, which is always positive definitive.
-
-The minimum control energy required to move the system from the initial state $x(0)=x_0$ to the target state $x(t)=x_{\mathrm{tar}}$ is given by 
-$$\min \int_{0}^{t} u(\tau)^{T} u(\tau) \, d\tau = \left(x_{\mathrm{tar}}-e^{A t} x_{0}\right)^{T} W\left(t\right)^{-1}\left(x_{\mathrm{tar}}-e^{A t} x_{0}\right)$$
-
-
-This file will output 3 metrics:
-- Metric 1: smallest eigenvalue of Controllability Gramian: $\lambda_{\mathrm{min}}(W(t))$, worst-case metric inversely related to the energy required to move the system in the direction that is the most difficult to move.
-- Metric 2: trace of inverse Controllability Gramian: $\mathrm{Tr}(W(t)^{-1} )$, average control energy over random target states.
-- Metric 3: minimum transfer energy: $E_{min}(t)$
+![Control_Energy_Formula](img/Control_Energy_Formula.png)
 
 **Default Parameters Setup:**
 - FD_bool: mode of the LCC system 0. CF-LCC; 1. FD-LCC
@@ -302,37 +188,15 @@ The purpose of this file is to find the new "looking ahead" head-to-tail string 
 **Head-to-tail transfer function of the LCC system:**
 
 We define 
+![Alpha Gamma definition](img/New_Looking_formula1.png)
 
-$$\varphi  \left( s \right) = \alpha _{3}s+ \alpha _{1},  \gamma  \left( s \right) =s^{2}+ \alpha _{2}s+ \alpha _{1}$$
-
-and $\mu\_{i}$, $k\_{i}$ as the static feedback gain of the spacing error and the velocity error of vehicle $i$  ($i \in \mathcal{F} \cup \mathcal{P}$), respectively. 
-
-
-> For more information of how to derive $\varphi$ and $\gamma$, please check the [LCC paper](https://arxiv.org/abs/2012.04313) section IV.
+> For more information of how to derive phi and gamma, please check the [LCC paper](https://arxiv.org/abs/2012.04313) section IV.
 
 We define the Head-to-tail Transfer Function as:
-
-$$\Gamma (s) = \frac{\widetilde{V}\_\mathrm{t} (s)  }{\widetilde{V}\_\mathrm{h} (s) }$$
-
-where $\widetilde{V}\_\mathrm{h}(s), \widetilde{V}\_\mathrm{t}(s)$ denote the Laplace transform of  $\tilde{v}\_\mathrm{h} (t)$  and  $\tilde{v}\_\mathrm{t} (t)$, respectively.
+![Head_to_tail_transfer_function](img/Head_to_tail_transfer_function.png)
 
 Head-to-tail transfer function for LCC is shown as following:
-
-$$\Gamma  \left( s \right) =G(s) \cdot \left( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } \right) ^{n+m},$$
-
-where
-
-$$G(s)=\frac{ \varphi  \left( s \right) + \sum\_{i\in \mathcal{P}}H_{i} \left( s \right)  ( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } ) ^{i+1}}{ \gamma  \left( s \right) - \sum\_{i \in \mathcal{F}} H_{i} \left( s \right)  ( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } ) ^{i}},$$
-
-with
-
-$$H\_{i} \left( s \right) = \mu\_{i}\left(\frac{\gamma (  s )}{\varphi  ( s )} - 1\right)+k\_{i}s,\,i \in \mathcal{F} \cup \mathcal{P}.$$
-
-The system is called head-to-tail string stable if and only if 
-
-$$|\Gamma(j \omega)|^2 < 1, \forall \omega > 0$$
-
-where $j^2=-1$, and $| \cdot |$ denotes the modulus.
+![LCC_head_to_tail_function](img/LCC_head_to_tail_function.png)
 
 **Output:**
 
@@ -374,12 +238,12 @@ The purpose of this file is to find the head-to-tail string stable regions when 
 When only monitoring one HDV the transfer function is slightly different for each different cases.
 
 Case 1: id < 0 Monitoring the preceding vehicle
+![ID_less_zero](img/ID_less_zero.png)
 
-$$\Gamma  \left( s \right) =\frac{ \varphi  \left( s \right) + \sum\_{i\in \mathcal{P}}H_{i} \left( s \right)  ( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } ) ^{i+1}}{ \gamma  \left( s \right)} \cdot \left( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } \right) ^{n+m}$$
 
 Case 2: id > 0 Monitoring the following vehicle
+![ID_greater_zero](img/ID_greater_zero.png)
 
-$$\Gamma  \left( s \right) =\frac{ \varphi  \left( s \right)  }{ \gamma  \left( s \right)- \sum\_{i \in \mathcal{F}} H\_{i} \left( s \right)  ( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } ) ^{i}} \cdot \left( \frac{ \varphi  \left( s \right) }{ \gamma  \left( s \right) } \right) ^{n+m}$$
 
 Besides the Gamma function formula, the rest formula stays the same.
 

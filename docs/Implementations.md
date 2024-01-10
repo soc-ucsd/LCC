@@ -25,7 +25,7 @@ The purpose of this function is linearized state-space model for general LCC sys
 
 **General System Model Formula:**
 ![General System Model Formula](img/General_System_Model_Formula1.jpg)
-where ![F](img/F.png) and ![P](img/P.png) shown in [LCC figure](https://github.com/soc-ucsd/LCC/blob/main/docs/img/LCC.png)
+where <img src="img/F.png" alt="F" width="100"> and <img src="img/P.png" alt="P" width="125"> shown in [LCC figure](https://github.com/soc-ucsd/LCC/blob/main/docs/img/LCC.png)
 
 
 
@@ -39,10 +39,12 @@ The purpose of this function is linearized state-space model for Car-following s
 
 **Output:**
 - state-space model: [A, B]
-![state_model_formula](img/state_model_formula.png)
+<img src="img/state_model_formula.png" alt="state_model_formula" width="90">
 
 **Car-following system model formula:**
-![Car-following_system_model_formula](img/Car-following_system_model_formula.png)
+
+<img src="img/Car-following_system_model_formula.png" alt="Car-following_system_model_formula" width="600">
+
 > (For more information of how to derive from general formula to car-following formula, please check the [LCC paper](https://arxiv.org/abs/2012.04313))
 
 #### SystemModel_FD[.m](https://github.com/soc-ucsd/LCC/blob/main/_model/SystemModel_FD.m) / [.py](https://github.com/soc-ucsd/LCC/blob/main/Python%20Implementation/_model/SystemModel_FD.py)
@@ -54,11 +56,11 @@ The purpose of this function is linearized state-space model for free-driving sy
 
 **Output:**
 - state-space model: [A, B]
-![state_model_formula](img/state_model_formula.png)
+<img src="img/state_model_formula.png" alt="state_model_formula" width="90">
 
 **Free-driving system model formula:**
 
-![Free-driving_system_model_formula](img/Free-driving_system_model_formula.png)
+<img src="img/Free-driving_system_model_formula.png" alt="Free-driving_system_model_formula" width="500">
 
 >(For more information of how to derive from general formula to free-driving formula, please check the [LCC paper](https://arxiv.org/abs/2012.04313))
 
@@ -238,11 +240,15 @@ The purpose of this file is to find the head-to-tail string stable regions when 
 When only monitoring one HDV the transfer function is slightly different for each different cases.
 
 Case 1: id < 0 Monitoring the preceding vehicle
-![ID_less_zero](img/ID_less_zero.png)
+
+<img src="img/ID_less_zero.png" alt="ID_less_zero" width="300" >
+
 
 
 Case 2: id > 0 Monitoring the following vehicle
-![ID_greater_zero](img/ID_greater_zero.png)
+
+<img src="img/ID_greater_zero.png" alt="ID_greater_zero" width="300" >
+
 
 
 Besides the Gamma function formula, the rest formula stays the same.

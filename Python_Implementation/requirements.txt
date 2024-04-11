@@ -1,0 +1,7 @@
+numpy
+scipy
+line_profiler
+matplotlib
+tqdm
+joblib
+sympy

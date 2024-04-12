@@ -15,13 +15,15 @@ Two special cases of LCC are **Car-Driving LCC (CF-LCC)** and **Free-Driving LCC
 
 ## Features
 The CAV maintains car-following operations, adapting to the states of its preceding vehicles, and it also aims to **lead the motion of its following vehicles**. Specifically, by controlling of the CAV, LCC aims for both of the following two objectives:
-
-## Python Implementations
-For the Python implementation, please download the `requirements.txt file` for the necessary packages. 
-Then, run the command `pip install -r Python_Implementation/requirements.txt` in the terminal.
-
 1. **attenuate downstream traffic perturbations**;
 2. **smooth upstream traffic flow**.
+
+
+## Python Implementations
+For the Python implementation, please download the `requirements.txt` file for the necessary packages. 
+Then, run the command `pip install -r Python_Implementation/requirements.txt` in the terminal.
+
+
 
 ## Publications
 1. Wang, J., Zheng, Y., Chen, C., Xu, Q., & Li, K. (2020). Leading Cruise Control in Mixed Traffic Flow: System Modeling, Controllability, and String Stability. arXiv preprint arXiv:2012.04313. [link](https://arxiv.org/abs/2012.04313)
